@@ -14,14 +14,16 @@ def add_time(start, duration, day=""):
         addDays += (addHours // 24)
         addHours = (addHours % 24)
     
-    if startHours + addHours > 12  or (startHours + addHours == 11 and startMin + addMin > 60):
-        if item[1] == "PM":
-            item[1] = "AM"
-        else: 
-            item[1] == "PM"
+    if startHours + addHours > 12 or (startHours + addHours == 11 and startMin + addMin > 60):
         new_time = str(((startHours + addHours)%12 + (startMin + addMin)//60)) + ":" + str((startMin + addMin)%60) + " " + item[1]
+        if startHours + addHours > 24:
+            addDays += 1 
+        else:
+            if item[1] == "PM":
+                item[1] = "AM"
+            else: 
+                item[1] == "PM"
     else:
-        print(addHours)
         new_time = str(((startHours + addHours) + (startMin + addMin)//60)) + ":" + str((startMin + addMin)%60) + " " + item[1]
     
     if day:
@@ -36,4 +38,4 @@ def add_time(start, duration, day=""):
     print(new_time)
     return new_time
 
-add_time('10:10 PM', '1241:30', "tuesday")
+add_time('10:10 PM', "15:30", "tuesday")
