@@ -14,7 +14,7 @@ def add_time(start, duration, day=""):
         addDays += (addHours // 24)
         addHours = (addHours % 24)
     
-    if startHours + addHours > 12 and ((addHours) // 12) % 2 == 1  or (startHours + addHours == 11 and startMin + addMin > 60):
+    if startHours + addHours > 12  or (startHours + addHours == 11 and startMin + addMin > 60):
         if item[1] == "PM":
             item[1] = "AM"
         else: 
