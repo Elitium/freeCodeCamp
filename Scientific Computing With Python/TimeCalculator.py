@@ -10,21 +10,27 @@ def add_time(start, duration, day=""):
 
     new_time = ""
 
+    def getZero(total):
+        if total < 10:
+            return "0"
+        else:
+            return ""
+        
     if addHours >= 24:
         addDays += (addHours // 24)
         addHours = (addHours % 24)
     
     if startHours + addHours > 12 or (startHours + addHours == 11 and startMin + addMin > 60):
-        new_time = str(((startHours + addHours)%12 + (startMin + addMin)//60)) + ":" + str((startMin + addMin)%60) + " " + item[1]
-        if startHours + addHours > 24:
+        if startHours + addHours > 24 or ((startHours + addHours == 11) and startMin + addMin > 60 and item[1] == "PM"): #if start hours and hours to add sum to greater than 24 hrs, increment day by 1 and keep AM/PM the same or minutes cause it to be larger
             addDays += 1 
         else:
             if item[1] == "PM":
                 item[1] = "AM"
             else: 
                 item[1] == "PM"
+        new_time = str(((startHours + addHours)%12 + (startMin + addMin)//60)) + ":" + getZero((startMin + addMin)%60) + str((startMin + addMin)%60) + " " + item[1]
     else:
-        new_time = str(((startHours + addHours) + (startMin + addMin)//60)) + ":" + str((startMin + addMin)%60) + " " + item[1]
+        new_time = str(((startHours + addHours) + (startMin + addMin)//60)) + ":" + getZero((startMin + addMin)%60) + str((startMin + addMin)%60) + " " + item[1]
     
     if day:
         new_time += f", {days[(days.index(day.lower()) + addDays) % 7][0].upper() + days[(days.index(day.lower()) + addDays) % 7][1:]}"
@@ -38,4 +44,4 @@ def add_time(start, duration, day=""):
     print(new_time)
     return new_time
 
-add_time('10:10 PM', "15:30", "tuesday")
+add_time('8:16 PM', '466:02', 'tuesday')
