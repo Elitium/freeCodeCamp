@@ -14,16 +14,9 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
         ballsDrawn = hatCopy.draw(num_balls_drawn)
         goodPass = True
         for item, number in expected_balls.items():
-            if ballsDrawn.count(item) < number:
+            if ballsDrawn.count(item) != number:
                 goodPass = False
                 break
         if goodPass == True:
             sucess += 1
     return sucess/num_experiments
-
-hat = Hat(black=6, red=10, green=3)
-probability = experiment(hat=hat,
-                  expected_balls={"red":2,"green":1},
-                  num_balls_drawn=5,
-                  num_experiments=2000)
-print(probability)
